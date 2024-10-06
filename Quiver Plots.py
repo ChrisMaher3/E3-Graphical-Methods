@@ -15,8 +15,8 @@ def main():
     plt.gca().set_aspect('equal', adjustable='box')
     plt.xlabel('x')
     plt.ylabel('y')
-    quiver = plt.quiver(X[::5, ::5], Y[::5, ::5], Vx[::5, ::5], Vy[::5, ::5], pivot='mid')
-    plt.quiverkey(quiver, X=1.8, Y=1.8, U=0.5, label='Vector Magnitude: 0.5', labelpos='E')
+    plt.quiver(X[::5, ::5], Y[::5, ::5], Vx[::5, ::5], Vy[::5, ::5], pivot='mid', label='$v_x$ = cos($x$)$y$, $v_y$ = sin($y$)$x$')
+    plt.legend(loc='lower left')
     plt.show()
 
 if __name__ == '__main__':
