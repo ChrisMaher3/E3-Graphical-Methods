@@ -4,7 +4,7 @@ import numpy as np
 def main():
     plt.close()
 
-    q = 1  
+    q = 0.5
 
     coords = np.linspace(-2, 2, 101)
     x, y = np.meshgrid(coords, coords)
@@ -17,20 +17,17 @@ def main():
     plt.gca().set_aspect('equal', adjustable='box')
     plt.xlabel('x')
     plt.ylabel('y')
-    plt.title(f'2D function: $Z = q(x^2 + y^2), q={q}$')
-
     contour_filled = plt.contourf(x, y, z, 20) 
     plt.set_cmap('coolwarm')  
     plt.colorbar(contour_filled)  
 
-    contour_lines = plt.contour(x, y, z, 10, colors='black')  
-    plt.clabel(contour_lines, inline=True, fontsize=8) 
+    plt.contour(x, y, z, 10, colors='black')  
 
     skip = 5  
     x_skipped, y_skipped = x[::skip, ::skip], y[::skip, ::skip]
     dx_skipped, dy_skipped = dx[::skip, ::skip], dy[::skip, ::skip]
 
-    plt.quiver(x_skipped, y_skipped, dx_skipped, dy_skipped)
+    plt.quiver(x_skipped, y_skipped, dx_skipped, dy_skipped, scale=0.8)
 
     plt.show()
 
