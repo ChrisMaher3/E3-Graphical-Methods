@@ -9,7 +9,7 @@ def main():
     coords = np.linspace(-2, 2, 101)
     x, y = np.meshgrid(coords, coords)
 
-    z = q * (x**2 + y**2)
+    z = q / (x**2 + y**2)
 
     dx, dy = np.gradient(z)  
 

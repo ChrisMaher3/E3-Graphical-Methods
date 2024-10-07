@@ -1,23 +1,40 @@
 import matplotlib.pyplot as plt
 import numpy as np
 
+
 def main():
     plt.close()
 
-    x = np.linspace(0, 2, 101)
-    y = np.linspace(0, 2, 101)
-    X, Y = np.meshgrid(x, y)
+    x1, y1 = np.meshgrid(np.arange(0, 2 * np.pi, 0.2), np.arange(0, 2 * np.pi, 0.2))
+    vx1 = np.cos(x1)  
+    vy1 = np.sin(y1) 
 
-    Vx = np.cos(X) * Y
-    Vy = np.sin(X) * X
+    fig, ax = plt.subplots(1, 2, figsize=(12, 6))  
 
-    plt.figure(figsize=(6, 6))
-    plt.gca().set_aspect('equal', adjustable='box')
-    plt.xlabel('x')
-    plt.ylabel('y')
-    plt.quiver(X[::5, ::5], Y[::5, ::5], Vx[::5, ::5], Vy[::5, ::5], pivot='mid', label='$v_x$ = cos($x$)$y$, $v_y$ = sin($y$)$x$')
-    plt.legend(loc='lower left')
+    ax[0].set_aspect('equal', adjustable='box') 
+    ax[0].set_xlabel('x')
+    ax[0].set_ylabel('y')
+    ax[0].quiver(x1, y1, vx1, vy1, pivot='mid', label='$v_x$ = cos($x$), $v_y$ = sin($y$)')
+    ax[0].legend(loc='upper right')
+
+    x, y = np.meshgrid(np.linspace(0, 2 * np.pi, 101), np.linspace(0, 2 * np.pi, 101))
+    vx = np.cos(x) * y
+    vy = np.sin(x) * x
+    
+    ax[1].set_aspect('equal', adjustable='box')  # Make plot box square
+    ax[1].set_xlabel('x')  
+    ax[1].set_ylabel('y')  
+
+    q = ax[1].quiver(x[::5, ::5], y[::5, ::5], vx[::5, ::5], vy[::5, ::5], pivot='mid', 
+                     label='$v_x$ = cos($x$) y, $v_y$ = sin($y$) x')
+
+    ax[1].quiverkey(q, X=0.9, Y=-0.1, U=2, label=r'$2\frac{m}{s}$', labelpos='E', coordinates='axes')
+    ax[1].legend(loc="lower left")
+
+    plt.savefig('Quiver Plots.svg', bbox_inches='tight')
     plt.show()
+
 
 if __name__ == '__main__':
     main()
+
