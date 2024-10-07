@@ -21,7 +21,7 @@ def main():
     vx = np.cos(x) * y
     vy = np.sin(x) * x
     
-    ax[1].set_aspect('equal', adjustable='box')  # Make plot box square
+    ax[1].set_aspect('equal', adjustable='box')  
     ax[1].set_xlabel('x')  
     ax[1].set_ylabel('y')  
 
