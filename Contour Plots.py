@@ -28,7 +28,7 @@ def main():
     dx_skipped, dy_skipped = dx.T[::skip, ::skip], dy.T[::skip, ::skip]  # not
 
     plt.quiver(x_skipped, y_skipped, dx_skipped, dy_skipped, scale=0.8)
-    plt.savefig('contour plots 2.svg', bbox_inches='tight')
+    #plt.savefig('contour plots 2.svg', bbox_inches='tight')
     plt.show()
 
 
