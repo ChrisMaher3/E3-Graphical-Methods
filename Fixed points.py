@@ -28,8 +28,8 @@ def plot_flow_on_line(r, K):
     plt.axhline(0, color='black', linestyle='--')
     plt.xlabel('Population (x)')
     plt.ylabel('Population Growth Rate (dx/dt)')
-    plt.title(f'Flow on a Line for Verhulst Model (r={r}, K={K})')
     plt.legend()
+    plt.savefig(f'Flow on a Line for Verhulst Model (r={r}, K={K}).svg', bbox_inches='tight')
     plt.show()
 
 def plot_population_growth(r, K, x0_list, t_max=10, dt=0.01):
@@ -42,8 +42,8 @@ def plot_population_growth(r, K, x0_list, t_max=10, dt=0.01):
     
     plt.xlabel('Time (t)')
     plt.ylabel('Population (x)')
-    plt.title(f'Population Growth Over Time (r={r}, K={K})')
     plt.legend()
+    plt.savefig(f'Population Growth Over Time (r={r}, K={K}).svg', bbox_inches='tight')
     plt.show()
 
 def experiment_conclusions():

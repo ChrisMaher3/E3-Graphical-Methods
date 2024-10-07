@@ -5,7 +5,6 @@ def main():
     plt.close()
 
     q = 10
-    epsilon = 1e-6 
 
     coords = np.linspace(-2, 2, 101)
     x, y = np.meshgrid(coords, coords)

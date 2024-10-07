@@ -1,46 +1,57 @@
 import numpy as np
 import matplotlib.pyplot as plt
+from scipy import integrate
 
-def lotka_volterra(t, z, a, b, c, d):
-    x, y = z
-    dxdt = a * x - b * x * y
-    dydt = c * x * y - d * y
-    return np.array([dxdt, dydt])
+def lotka(t, y, a, b, c, d):
+    x, v = y 
+    dxdt = a * x - b * x * v  
+    dvdt = c * x * v - d * v  
+    dydt = np.array([dxdt, dvdt])
+    return dydt
 
-def rk4(f, t, z, dt, a, b, c, d):
-    k1 = f(t, z, a, b, c, d)
-    k2 = f(t + 0.5 * dt, z + 0.5 * dt * k1, a, b, c, d)
-    k3 = f(t + 0.5 * dt, z + 0.5 * dt * k2, a, b, c, d)
-    k4 = f(t + dt, z + dt * k3, a, b, c, d)
-    return z + (dt / 6) * (k1 + 2 * k2 + 2 * k3 + k4)
+def plot_lotka_volterra(a, b, c, d, x0=4, v0=2, tf=10, n=1001):
+    lfun = lambda t, y: lotka(t, y, a, b, c, d)
+    
+    y0 = (x0, v0)
+    
+    t0 = 0  
+    t = np.linspace(t0, tf, n)
+    
+    result = integrate.solve_ivp(fun=lfun, 
+                                 t_span=(t0, tf),
+                                 y0=y0,  
+                                 method="RK45",  
+                                 t_eval=t)  
+    
+    x, v = result.y 
+    t = result.t 
+    
+    fig, ax = plt.subplots(1, 2, figsize=(12, 6)) 
+    ax[0].plot(t, x, label=r"Rabbits")
+    ax[0].plot(t, v, label=r"Foxes")
+    ax[0].set_xlabel(r"Time")
+    ax[0].legend(loc='upper right')
+    
+    ax[1].plot(x, v, 'k')
+    ax[1].set_xlabel(r"Rabbit population")
+    ax[1].set_ylabel(r"Foxes population")
+    
+    plt.tight_layout()
+    plt.savefig(f"a={a}, b={b}, c={c}, d={d}.svg", bbox_inches='tight')
+    plt.show()
 
-a, b, c, d = 4.0, 2.0, 13.0, 1.0
-x0, y0 = 4.0, 2.0
-t0, tf, dt = 0, 10, 0.1
-t_values = np.arange(t0, tf, dt)
-z = np.zeros((len(t_values), 2))
-z[0] = [x0, y0]
 
-for i in range(1, len(t_values)):
-    z[i] = rk4(lotka_volterra, t_values[i-1], z[i-1], dt, a, b, c, d)
-
-x_values, y_values = z[:, 0], z[:, 1]
-
-plt.figure(figsize=(12, 5))
-
-plt.subplot(1, 2, 1)
-plt.plot(t_values, x_values, label='rabbits', color='blue')
-plt.plot(t_values, y_values, label='foxes', color='green', linestyle='--')
-plt.xlabel('time')
-plt.ylabel('number')
-plt.title('Population over Time')
-plt.legend()
-
-plt.subplot(1, 2, 2)
-plt.plot(x_values, y_values, color='red')
-plt.xlabel('rabbits')
-plt.ylabel('foxes')
-plt.title('Phase Space Diagram')
-
-plt.tight_layout()
-plt.show()
+parameter_sets = [
+    {"a": 3, "b": 2, "c": 0.5, "d": 1},
+    {"a": 4, "b": 2, "c": 0.5, "d": 1}, 
+    {"a": 4, "b": 5, "c": 0.5, "d": 1},
+    {"a": 4, "b": 2, "c": 0.3, "d": 1},
+    {"a": 4, "b": 2, "c": 0.5, "d": 3},
+]
+for params in parameter_sets:
+    a = params["a"]
+    b = params["b"]
+    c = params["c"]
+    d = params["d"]
+    
+    plot_lotka_volterra(a, b, c, d)
