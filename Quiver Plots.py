@@ -31,7 +31,7 @@ def main():
     ax[1].quiverkey(q, X=0.9, Y=-0.1, U=2, label=r'$2\frac{m}{s}$', labelpos='E', coordinates='axes')
     ax[1].legend(loc="lower left")
 
-    plt.savefig('Quiver Plots.svg', bbox_inches='tight')
+    #plt.savefig('Quiver Plots.svg', bbox_inches='tight')
     plt.show()
 
 
