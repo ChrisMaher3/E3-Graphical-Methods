@@ -30,6 +30,7 @@ def plot_lotka_volterra(a, b, c, d, x0=4, v0=2, tf=10, n=1001):
     ax[0].plot(t, x, label=r"Rabbits")
     ax[0].plot(t, v, label=r"Foxes")
     ax[0].set_xlabel(r"Time")
+    ax[0].set_ylabel(r"Number")
     ax[0].legend(loc='upper right')
     
     ax[1].plot(x, v, 'k')
@@ -37,7 +38,7 @@ def plot_lotka_volterra(a, b, c, d, x0=4, v0=2, tf=10, n=1001):
     ax[1].set_ylabel(r"Foxes population")
     
     plt.tight_layout()
-    #plt.savefig(f"a={a}, b={b}, c={c}, d={d}.svg", bbox_inches='tight')
+    plt.savefig(f"a={a}, b={b}, c={c}, d={d}.svg", bbox_inches='tight')
     plt.show()
 
 
